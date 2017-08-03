@@ -10,7 +10,7 @@
  * signals sent to the WS2812 LEDs.
  *
  *
- *  https://github.com/FozzTexx/ws2812-demo
+ *  https://github.com/MartyMacGyver/ESP32-Digital-RGB-LED-Drivers/tree/master/arduino-esp32/demo1
  *
  *
  *
