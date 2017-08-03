@@ -9,6 +9,11 @@
  * The RMT peripheral on the ESP32 provides very accurate timing of
  * signals sent to the WS2812 LEDs.
  *
+ *
+ *  https://github.com/FozzTexx/ws2812-demo
+ *
+ *
+ *
  */
 /* 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
