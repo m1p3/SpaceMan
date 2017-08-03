@@ -1,39 +1,9 @@
-/* 
- * Demo code for digital RGB LEDs using the RMT peripheral on the ESP32
- *
- * Modifications Copyright (c) 2017 Martin F. Falatic
- *
- * Based on public domain code created 19 Nov 2016 by Chris Osborn <fozztexx@fozztexx.com>
- * http://insentricity.com
- *
- * The RMT peripheral on the ESP32 provides very accurate timing of
- * signals sent to the WS2812 LEDs.
- *
- *
- *  https://github.com/MartyMacGyver/ESP32-Digital-RGB-LED-Drivers/tree/master/arduino-esp32/demo1
- *
- *
- *
+/* SpaceMan 
+ *  
+ *  
  */
-/* 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+
+
 
 #include "ws2812.h"
 
@@ -46,7 +16,7 @@
 #endif
 
 const int DATA_PIN = 18; // Avoid using any of the strapping pins on the ESP32
-const uint16_t NUM_PIXELS = 261;  // How many pixels you want to drive
+const uint16_t NUM_PIXELS = 256;  // How many pixels you want to drive
 uint8_t MAX_COLOR_VAL = 32; // Limits brightness
 
 int pausetime = 500;
@@ -82,15 +52,14 @@ void setup() {
     dumpDebugBuffer(-1, ws2812_debugBuffer);
   #endif
   Serial.println("Init complete");
-
-  
 }
 
 int passes = 0;
 int MAX_PASSES = 10;
 
+void show_SpaceMAN()
+{
 
-void loop() {
 // Links
   ALL_LEDS(0,25,150,0,0); // Linke Seite bis Hals 
   ALL_LEDS(25,33,0,150,0); // Linker Arm
@@ -110,18 +79,19 @@ void loop() {
   
   ws2812_setColors(NUM_PIXELS, pixels); 
 
-  
- // rainbow(0, 5000);
-  //scanner(0, 5000);
- // displayOff();
-
 }
 
 void ALL_LEDS(int X1, int X2, uint8_t r, uint8_t g, uint8_t b) {
   for (uint16_t i = X1; i < X2; i++) {
     pixels[i] = makeRGBVal(r, g, b);  
   }
+}
 
+
+void loop() {
+  rainbow(0, 5000);
+  scanner(0, 5000);
+  displayOff();
 }
 
 void loop_FOR_DEBUG_TESTING() {
@@ -183,7 +153,7 @@ void rainbow(unsigned long delay_ms, unsigned long timeout_ms)
   while (RUN_FOREVER || (millis() - start_ms < timeout_ms)) {
     color = color2;
     stepVal = stepVal2;
-      
+  
     for (uint16_t i = 0; i < NUM_PIXELS; i++) {
       pixels[i] = makeRGBVal(color.r/color_div, color.g/color_div, color.b/color_div);
   
@@ -224,7 +194,6 @@ void rainbow(unsigned long delay_ms, unsigned long timeout_ms)
           stepVal = 0;
         break;
       }
-
     }
   
     ws2812_setColors(NUM_PIXELS, pixels);
